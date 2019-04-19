@@ -3,28 +3,32 @@ import StubInterface from './StubInterface'
 class BleId {
 
     discover(successCb, failureCb) {
-        getInterface().discover(
-            saveAsGlobal(successCb),
-            saveAsGlobal(failureCb));
+        getInterface()
+            .discover(
+                saveAsGlobal(successCb),
+                saveAsGlobal(failureCb));
     }
 
 
     connect(deviceName, successCb, failureCb) {
-        getInterface().connect(deviceName,
-            saveAsGlobal(successCb),
-            saveAsGlobal(failureCb));
+        getInterface()
+            .connect(deviceName,
+                saveAsGlobal(successCb),
+                saveAsGlobal(failureCb));
     }
 
     sendToken(userToken, successCb, failureCb) {
-        getInterface().sendToken(userToken,
-            saveAsGlobal(successCb),
-            saveAsGlobal(failureCb));
+        getInterface()
+            .sendToken(userToken,
+                saveAsGlobal(successCb),
+                saveAsGlobal(failureCb));
     }
 
     disconnect(successCb, failureCb) {
-        getInterface().disconnect(
-            saveAsGlobal(successCb),
-            saveAsGlobal(failureCb));
+        getInterface()
+            .disconnect(
+                saveAsGlobal(successCb),
+                saveAsGlobal(failureCb));
     }
 }
 
@@ -36,9 +40,10 @@ function getInterface() {
     return new StubInterface();
 }
 
-function saveAsGlobal(fct) {
-    let i = Math.floor(Math.random() * 1000) + 1;
-    let name = "fct_" + i;
-    window[name] = fct;
+function saveAsGlobal(fun) {
+    let i = Math.floor(Math.random() * 100000) + 1;
+    let name = "fun_" + i;
+    window[name] = fun;
+    // console.log(`Function stored as global: ${name}`);
     return name;
 }

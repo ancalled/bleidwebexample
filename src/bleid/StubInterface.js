@@ -1,38 +1,75 @@
+const deviceNameTemplate = 'TEST_';
+
 class StubInterface {
 
-    async discover(successCbName, failureCbName) {
+    constructor() {
+        this.deviceName = '';
+    }
+
+    discover(successCbName, failureCbName) {
         console.log('StubInterface: discover called');
-        await sleep(2000);
-        getGlobal(successCbName)('JAALE_1');
+        sleep(randomTimeout(1000, 2000)).then(() => {
+            if (!randomFailure(10)) {
+                this.deviceName = deviceNameTemplate + randomId();
+                window[successCbName](this.deviceName);
+            } else {
+                window[failureCbName]('Some error');
+            }
+        });
     }
 
-    async connect(successCbName, failureCbName) {
-        console.log('StubInterface: connect called');
-        await sleep(1000);
-        getGlobal(successCbName)('JAALE_1');
+    connect(deviceName, successCbName, failureCbName) {
+        console.log(`StubInterface: connect called, deviceName: ${deviceName}`);
+        sleep(randomTimeout(500, 1200)).then(() => {
+            if (!randomFailure(10)) {
+                window[successCbName](this.deviceName);
+            } else {
+                window[failureCbName]('Some error');
+            }
+        });
     }
 
-    async sendToken(successCbName, failureCbName) {
-        console.log('StubInterface: sendToken called');
-        await sleep(3000);
-        getGlobal(successCbName)('JAALE_1');
+    sendToken(userToken, successCbName, failureCbName) {
+        console.log(`StubInterface: sendToken called, token: ${userToken}`);
+        sleep(randomTimeout(1000, 2000)).then(() => {
+            if (!randomFailure(10)) {
+                window[successCbName](this.deviceName);
+            } else {
+                window[failureCbName]('Some error');
+            }
+        });
     }
 
-    async disconnect(successCbName, failureCbName) {
+    disconnect(successCbName, failureCbName) {
         console.log('StubInterface: disconnect called');
-        await sleep(1000);
-        getGlobal(successCbName)('JAALE_1');
+        sleep(randomTimeout(400, 900)).then(() => {
+            if (!randomFailure(10)) {
+                window[successCbName](this.deviceName);
+            } else {
+                window[failureCbName]('Some error');
+            }
+        });
+        this.deviceName = ''
     }
 }
 
 export default StubInterface;
 
 
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function randomTimeout(from, to) {
+    return Math.floor(Math.random() * (to - from)) + from + 1;
 }
 
-function getGlobal(fctNam) {
-    return window[fctNam];
+function randomId() {
+    return Math.floor(Math.random() * 10) + 1;
 }
+
+function randomFailure(n) {
+    let i = Math.floor(Math.random() * n) + 1;
+    return i === 1;
+}
+
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
