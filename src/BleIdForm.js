@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import './BleIdForm.css';
 import BleId from './bleid/BleId';
 
 const bleId = new BleId();
@@ -12,9 +12,6 @@ class BleIdForm extends Component {
             isToggleOn: false,
             bleState: 'none'
         };
-
-        // This binding is necessary to make `this` work in the callback
-
     }
 
     handleClick() {
@@ -26,57 +23,59 @@ class BleIdForm extends Component {
         let bleState = this.state.bleState;
         if (bleState === 'none') {
             bleId.discover(
+                (erMes) => {
+                    console.error(`Error on discover: ${erMes}`)
+                },
                 (deviceName) => {
                     console.log(`Found device: ${deviceName}`);
                     this.setState(state => ({
                         deviceName: deviceName,
                         bleState: 'discovered'
                     }));
-                },
-                (erMes) => {
-                    console.error(`Error on discover: ${erMes}`)
-                });
+                }
+            );
 
         } else if (bleState === 'discovered') {
             let deviceName = this.state.deviceName;
             bleId.connect(deviceName,
+                (erMes) => {
+                    console.error(`Error on connect: ${erMes}`)
+                },
                 (deviceName) => {
                     console.log(`Connected to device: ${deviceName}`);
                     this.setState(state => ({
                         deviceName: deviceName,
                         bleState: 'connected'
                     }));
-                },
-                (erMes) => {
-                    console.error(`Error on connect: ${erMes}`)
                 });
 
         } else if (bleState === 'connected') {
             let userToken = '1234';
             bleId.sendToken(userToken,
+                (erMes) => {
+                    console.error(`Error on send: ${erMes}`)
+                },
                 (deviceName) => {
                     console.log(`Sent token to device: ${deviceName}`);
                     this.setState(state => ({
                         deviceName: deviceName,
                         bleState: 'sent'
                     }));
-                },
-                (erMes) => {
-                    console.error(`Error on send: ${erMes}`)
-                });
+                }
+            );
 
 
         } else if (bleState === 'sent') {
             bleId.disconnect(
+                (erMes) => {
+                    console.error(`Error on disconnect: ${erMes}`)
+                },
                 (deviceName) => {
                     console.log(`Disconnected from device: ${deviceName}`);
                     this.setState(state => ({
                         deviceName: deviceName,
                         bleState: 'none'
                     }));
-                },
-                (erMes) => {
-                    console.error(`Error on disconnect: ${erMes}`)
                 });
         }
     };
@@ -99,7 +98,7 @@ class BleIdForm extends Component {
         return (
             <div className="App">
                 <div>
-                    <button onClick={() => this.handleClick()}>
+                    <button className="button" onClick={() => this.handleClick()}>
                         {this.getButtonName()}
                     </button>
                 </div>
