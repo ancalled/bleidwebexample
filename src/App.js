@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import BleIdForm from './BleIdForm';
+// import BleIdForm from './BleIdForm';
 import BleIdFormSimpleAuth from './BleIdFormSimpleAuth';
 
 class App extends Component {

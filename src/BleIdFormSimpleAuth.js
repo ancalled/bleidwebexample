@@ -5,6 +5,7 @@ import './BleIdForm.css'
 import {ReactComponent as Waves} from './waves.svg';
 
 const bleId = new BleId();
+const userCode = '12367';
 
 class BleIdFormSimpleAuth extends Component {
 
@@ -26,7 +27,7 @@ class BleIdFormSimpleAuth extends Component {
                 bleState: 'DISCOVERING'
             });
 
-            bleId.simpleAuth('12367',
+            bleId.simpleAuth(userCode,
                 (operation, deviceName, erMes) => {
                     if (!erMes) {
                         if (operation === 'DISCOVER') {
