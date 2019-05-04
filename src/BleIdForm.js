@@ -121,7 +121,7 @@ class BleIdForm extends Component {
                     {this.state.deviceName}
                 </div>
                 <div className="card">
-                    <div className="card-body buttonContainer">
+                    <div className="card-body state-container">
                         <button className="btn btn-info btn-lg "
                                 onClick={() => this.handleClick()}
                                 disabled={buttonDisabled}>

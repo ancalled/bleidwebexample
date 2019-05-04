@@ -8,28 +8,28 @@ class StubInterface {
 
     simpleAuth(userToken, listenerName) {
         console.log('simpleAuth');
-        sleep(randomTimeout(1000, 2000)).then(() => {
+        sleep(randomTimeout(3000, 5000)).then(() => {
 
             if (!randomFailure(10)) {
                 this.deviceName = deviceNameTemplate + randomId();
                 getListener(listenerName)('DISCOVER', this.deviceName, null);
 
-                sleep(randomTimeout(1000, 2000)).then(() => {
+                sleep(randomTimeout(500, 1000)).then(() => {
                     if (!randomFailure(10)) {
                         this.deviceName = deviceNameTemplate + randomId();
                         getListener(listenerName)('CONNECT', this.deviceName, null);
 
-                        sleep(randomTimeout(1000, 2000)).then(() => {
+                        sleep(randomTimeout(500, 100)).then(() => {
                             if (!randomFailure(10)) {
                                 this.deviceName = deviceNameTemplate + randomId();
                                 getListener(listenerName)('SEND_TOKEN', this.deviceName, null);
 
-                                sleep(randomTimeout(1000, 2000)).then(() => {
+                                sleep(randomTimeout(500, 1000)).then(() => {
                                     if (!randomFailure(10)) {
                                         this.deviceName = deviceNameTemplate + randomId();
                                         getListener(listenerName)('DISCONNECT', this.deviceName, null);
 
-                                        sleep(randomTimeout(1000, 2000)).then(() => {
+                                        sleep(randomTimeout(500, 1000)).then(() => {
                                             if (!randomFailure(10)) {
                                                 this.deviceName = deviceNameTemplate + randomId();
                                                 getListener(listenerName)('SIMPLE_AUTH', this.deviceName, null);

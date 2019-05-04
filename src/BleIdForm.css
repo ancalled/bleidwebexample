@@ -1,8 +1,74 @@
 
+.state-container {
+    min-height: 400px;
+    text-align: center;
+}
 
+.state-text {
+    margin-top: 50px;
+}
 
+.device-name {
+    font-size: 10pt;
+    font-weight: bold;
+    color: darkgray;
+}
 
-.buttonContainer {
-  min-height: 400px;
-  min-width: 500px;
+.round-btn {
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    border-radius: 25px
+}
+
+.round-btn:hover {
+    background-color: RoyalBlue;
+}
+
+.round-btn:disabled {
+    background-color: #ccc;
+}
+
+.waves-wrapper {
+    min-height: 150px;
+}
+
+.waves {
+    margin-top: 90px;
+}
+
+.wave-1 {
+    animation: blink-1 1.5s linear infinite;
+}
+
+.wave-2 {
+    animation: blink-2 1.5s linear infinite;
+}
+
+.wave-3 {
+    animation: blink-3 1.5s linear infinite;
+}
+
+@keyframes blink-1 {
+    0% {opacity: 0;}
+    25% {opacity: 1;}
+    50% {opacity: 1;}
+    100% {opacity: 1;}
+}
+
+@keyframes blink-2 {
+    0% {opacity: 0;}
+    25% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 1;}
+}
+
+@keyframes blink-3 {
+    0% {opacity: 0;}
+    25% {opacity: 0;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
 }

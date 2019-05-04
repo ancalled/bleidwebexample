@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import BleId from './bleid/BleId';
+import './BleIdForm.css'
+import {ReactComponent as Waves} from './waves.svg';
 
 const bleId = new BleId();
 
-class BleIdForm2 extends Component {
+class BleIdFormSimpleAuth extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             buttonDisabled: false,
-            bleState: 'NONE'
+            bleState: 'NONE',
+            deviceName: null
         };
     }
 
@@ -19,9 +22,10 @@ class BleIdForm2 extends Component {
         const {bleState} = this.state;
         if (bleState === 'NONE') {
             this.setState({
-                buttonDisabled: true
+                buttonDisabled: true,
+                bleState: 'DISCOVERING'
             });
-            
+
             bleId.simpleAuth('12367',
                 (operation, deviceName, erMes) => {
                     if (!erMes) {
@@ -73,28 +77,36 @@ class BleIdForm2 extends Component {
     };
 
 
-
-
-
     render() {
-        const {bleState, buttonDisabled} = this.state;
+        const {bleState, buttonDisabled, deviceName} = this.state;
+        const wavesShown = bleState === 'DISCOVERING';
         return (
             <div className="container">
                 <div className="card-header">
-                    {bleState}
+                    Authentication Example
                 </div>
                 <div className="card">
-                    <div className="card-body buttonContainer">
-                        <button className="btn btn-info btn-lg "
-                                onClick={() => this.handleClick()}
-                                disabled={buttonDisabled}>
-                            Authenticate
-                        </button>
+                    <div className="card-body state-container">
+                        <div className="waves-wrapper">
+                            <Waves className="waves" hidden={!wavesShown}/>
+                        </div>
+                        <div className="state-text">
+                            {bleState}
+                            <br/>
+                            <span className="device-name">
+                                {deviceName}
+                            </span>
+                        </div>
                     </div>
+                </div>
+                <div className="card-footer">
+                    <button className="round-btn"
+                            onClick={() => this.handleClick()}
+                            disabled={buttonDisabled}><i className="fa fa-wifi"></i></button>
                 </div>
             </div>
         );
     }
 }
 
-export default BleIdForm2;
+export default BleIdFormSimpleAuth;
