@@ -2,6 +2,12 @@ import StubInterface from './StubInterface'
 
 class BleId {
 
+    simpleAuth(userToken, stateListener) {
+        getInterface()
+            .simpleAuth(userToken,
+                saveAsGlobal(stateListener));
+    }
+
     discover(failureCb, successCb) {
         getInterface()
             .discover(
